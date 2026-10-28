@@ -136,9 +136,11 @@
     setTimeout(function () { mask.classList.remove('on'); }, 2600);
   }
 
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    go();
+  /* 不拦截默认行为：让浏览器/微信原生处理 tel: 链接，兼容性最好。
+     微信内 JS 改 location 可能被拦，原生链接点击则可正常唤起拨号。 */
+  btn.addEventListener('click', function () {
+    mask.classList.add('on');
+    setTimeout(function () { mask.classList.remove('on'); }, 2600);
   });
 
   /* 打开即尝试唤起拨号：系统相机 / 浏览器扫码时会直接弹出拨号盘。
