@@ -143,13 +143,11 @@
     setTimeout(function () { mask.classList.remove('on'); }, 2600);
   });
 
-  /* 打开即尝试唤起拨号：系统相机 / 浏览器扫码时会直接弹出拨号盘。
-     微信内置浏览器会拦截自动跳转，此时页面上的按钮就是入口。 */
-  var ua = navigator.userAgent || '';
-  var isWeChat = /MicroMessenger/i.test(ua);
-  if (!isWeChat) {
-    setTimeout(go, 420);
-  }
+  /* 打开即尝试唤起拨号盘。
+     普通浏览器会直接弹拨号；微信可能拦截（拦了也无害，下面的按钮仍可点）。 */
+  setTimeout(function () {
+    try { window.location.href = tel; } catch (e) {}
+  }, 480);
 })();
 </script>
 </body>
